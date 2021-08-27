@@ -17,7 +17,6 @@ const routes = [
     name:"Mostrar",
     component: () => import("../views/Mostrar.vue")
   }
-  
 ]
 
 const router = createRouter({

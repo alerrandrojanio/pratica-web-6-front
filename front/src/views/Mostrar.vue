@@ -1,33 +1,40 @@
 <template>
- <div class="campos">
-
+<div class="campos">
           <h4>Mostrar Posts</h4>
-            <button @click="mostarPosts()">Posts</button><br /><br />
-                <ul>
-                    <li v-for="post in posts " :key="post.id">
-                        
-                        <div class="infor">
-                        <p>Id: {{ post.id }}</p>
-                        <p>Corpo: {{ post.corpo }}</p>
-                        <p>Data: {{ post.data }}</p>
-                        <p>Hora: {{ post.hora }}</p>
-                        </div>
-                        <br/>
-                        
-                        <div class="campos">
-                            <h6>Comentar</h6>
-                            <p> Comentario: <input type="text" v-model="comentario" /><br /></p> 
-                            <p> Data: <input type="text" v-model="data" /><br /></p>
-                            <p> Hora: <input type="text" v-model="hora" /><br /></p>
-                            
-                            <div class="butaos">
-                                <button @click="post(post.id)">Publicar</button><br /><br />
-                            </div>
-                        </div>        
-                    </li>
-                </ul>
+            <button @click="mostarPosts()">Posts</button><br /><br/>
+                <div v-for="post in posts" :key="post.id">
+                    <div>
+                        <ul>
+                            <li>
+                                <p>Id: {{ post.id }}</p>
+                                <p>Corpo: {{ post.corpo }}</p>
+                                <p>Data: {{ post.data }}</p>
+                                <p>Hora: {{ post.hora }}</p>
+                                <ul>
+                                    <div v-for="feedback in feedbacks" :key="feedback.id">
+                                        <li v-if="feedback.id_post === post.id">
+                                            <p>Comentario: {{feedback.comentario}}</p>
+                                            <p>Data: {{feedback.data}}</p>
+                                            <p>Hora: {{feedback.hora}}</p>
+                                        </li>
+                                    </div>
+                                </ul>
 
+                                <div class="campos">
+                                    <h6>Comentar</h6>
+                                    <p> Comentario: <input type="text" v-model="comentario" /><br /></p> 
+                                    <p> Data: <input type="text" v-model="data" /><br /></p>
+                                    <p> Hora: <input type="text" v-model="hora" /><br /></p>
+                            
+                                    <div class="butaos">
+                                        <button @click="post(post.id)">Publicar</button><br /><br />
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
         </div>
+</div>
 </template>
 
 <script>
@@ -41,6 +48,7 @@ export default {
             hora: "",
             id_post: "",
             posts: [],
+            feedbacks: [],
             baseURIPosts:"http://localhost:3000/posts",
             baseURIFeedbacks:"http://localhost:3000/feedbacks"
         }
